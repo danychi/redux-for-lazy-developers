@@ -1,0 +1,167 @@
+{
+  "name": "rfld",
+  "version": "0.1.0",
+  "private": true,
+  "babel": {
+    "plugins": [
+      "styled-components",
+      "syntax-dynamic-import",
+      "@babel/plugin-proposal-function-bind"
+    ],
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "modules": false
+        }
+      ],
+      "@babel/preset-react"
+    ],
+    "env": {
+      "production": {
+        "only": [
+          "app"
+        ],
+        "plugins": [
+          "transform-react-remove-prop-types",
+          "transform-react-constant-elements",
+          "transform-react-inline-elements"
+        ]
+      },
+      "test": {
+        "plugins": [
+          "transform-es2015-modules-commonjs",
+          "dynamic-import-node"
+        ]
+      }
+    }
+  },
+  "dependencies": {
+    "connected-react-router": "4.5.0",
+    "enzyme": "3.6.0",
+    "enzyme-adapter-react-16": "1.5.0",
+    "enzyme-to-json": "3.3.4",
+    "faker": "^4.1.0",
+    "history": "4.7.2",
+    "hoist-non-react-statics": "3.0.1",
+    "lodash": "4.17.11",
+    "prop-types": "15.6.2",
+    "ramda": "^0.26.1",
+    "react": "16.8.6",
+    "react-device-detect": "1.6.1",
+    "react-dom": "16.8.6",
+    "react-loadable": "5.5.0",
+    "react-loader-spinner": "2.0.6",
+    "react-redux": "5.0.7",
+    "react-router": "4.3.1",
+    "react-router-dom": "4.3.1",
+    "react-scripts": "2.0.4",
+    "recompose": "0.29.0",
+    "redux": "4.0.0",
+    "redux-saga": "0.16.0",
+    "reselect": "3.0.1",
+    "styled-components": "3.4.9"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.1.2",
+    "@babel/core": "7.1.2",
+    "@babel/plugin-proposal-function-bind": "7.0.0",
+    "@babel/polyfill": "7.0.0",
+    "@babel/preset-env": "7.1.0",
+    "@babel/preset-react": "7.0.0",
+    "@babel/preset-stage-0": "7.0.0",
+    "babel-eslint": "9.0.0",
+    "babel-plugin-dynamic-import-node": "1.2.0",
+    "babel-plugin-react-intl": "2.4.0",
+    "babel-plugin-react-transform": "3.0.0",
+    "babel-plugin-styled-components": "1.5.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "6.26.2",
+    "babel-plugin-transform-react-constant-elements": "6.23.0",
+    "babel-plugin-transform-react-inline-elements": "6.22.0",
+    "babel-plugin-transform-react-jsx-source": "6.22.0",
+    "babel-plugin-transform-react-remove-prop-types": "0.4.13",
+    "babel-polyfill": "6.26.0",
+    "eslint": "5.6.0",
+    "eslint-config-airbnb": "17.1.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-config-prettier": "3.0.1",
+    "eslint-plugin-import": "2.14.0",
+    "eslint-plugin-jsx-a11y": "6.1.1",
+    "eslint-plugin-prettier": "2.6.2",
+    "eslint-plugin-react": "7.11.1",
+    "eslint-plugin-redux-saga": "0.9.0",
+    "gh-pages": "2.0.1",
+    "husky": "1.1.0",
+    "jest": "23.6.0",
+    "jest-cli": "23.1.0",
+    "jest-styled-components": "6.2.0",
+    "lint-staged": "7.2.2",
+    "prettier": "1.14.2",
+    "prettier-eslint": "8.8.2"
+  },
+  "lint-staged": {
+    "linters": {
+      "*.js": [
+        "eslint --max-warnings 0",
+        "git add",
+        "jest --bail --findRelatedTests"
+      ]
+    }
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/**/*.test.{js,jsx}",
+      "!src/containers/**/index.{js,jsx}",
+      "!src/containers/**/tests/index.{js,jsx}",
+      "!src/app.js",
+      "!src/global-styles.js",
+      "!src/storeConf.js",
+      "!src/routes.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 80,
+        "branches": 80,
+        "functions": 80,
+        "lines": 80
+      }
+    },
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "moduleNameMapper": {
+      ".*\\.(css|less|styl|scss|sass)$": "<rootDir>/internals/mocks/cssModule.js",
+      ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/image.js"
+    },
+    "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-bundler.js",
+    "testRegex": "tests/.*\\.test\\.js$",
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "jest",
+    "eject": "react-scripts eject",
+    "precommit": "lint-staged",
+    "format": "node node_modules/prettier/bin-prettier.js --write  \"src/**/*.js\"",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watchAll",
+    "test:watch:cov": "jest --watchAll --coverage",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
