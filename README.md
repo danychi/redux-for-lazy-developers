@@ -1,6 +1,6 @@
 ## Description
 
-Simple video library for series created using React+Redux
+Simple Instagram copy created using React+Redux
 
 ## Source
 
