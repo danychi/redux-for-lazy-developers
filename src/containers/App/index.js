@@ -8,6 +8,9 @@ import { mapDispatchers } from '../../utils/internal/redux-utils';
 import ReactGramLogo from '../../assets/logo.png';
 import Header from '../../components/Header';
 import { headerLinks } from './constants';
+import { fetchResource } from '../../global/resources/actions';
+import { RESOURCES } from '../../global/resources/constants';
+import { fetchPosts } from '../../services/posts';
 
 const App = ({ children }) => (
   <Fragment>
@@ -29,7 +32,7 @@ App.propTypes = {
   children: PropTypes.node,
 };
 
-const dispatchers = mapDispatchers({});
+const dispatchers = mapDispatchers({ fetchResource });
 
 export default compose(
   withRouter,
@@ -39,7 +42,7 @@ export default compose(
   ),
   lifecycle({
     componentDidMount() {
-      // TODO load posts
+      this.props.fetchResource(RESOURCES.posts, fetchPosts);
     },
   })
 )(App);

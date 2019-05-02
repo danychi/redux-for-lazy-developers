@@ -1,23 +1,18 @@
-import { lifecycle, compose, branch, renderComponent, withStateHandlers } from 'recompose';
+import { connect } from 'react-redux';
+import { compose, branch, renderComponent, withStateHandlers } from 'recompose';
 import HomePageComponent from './component';
 import Loader from '../../components/Loader';
-import { generatePosts } from '../../mock/data';
+import connector from './selectors';
 
 export default compose(
+  connect(connector),
   withStateHandlers(
     {
-      posts: null,
+      prop: null,
     },
     {
-      setPosts: () => (posts) => ({ posts }),
+      setProp: () => (prop) => ({ [prop]: prop }),
     }
   ),
-  lifecycle({
-    componentDidMount() {
-      const posts = generatePosts();
-      console.log(posts);
-      this.props.setPosts(posts);
-    },
-  }),
   branch(({ isShowsLoading }) => isShowsLoading, renderComponent(Loader), renderComponent(HomePageComponent))
 )();

@@ -6,6 +6,7 @@
 import { connectRouter } from 'connected-react-router';
 import { combineReducers } from 'redux';
 import history from './router/history';
+import resourcesReducer from './global/resources/reducers';
 
 /**
  * Creates the main reducer with the asynchronously loaded ones
@@ -13,6 +14,7 @@ import history from './router/history';
 export default function createReducer(asyncReducers) {
   const reducers = combineReducers({
     ...asyncReducers,
+    resources: resourcesReducer,
   });
   // TODO possible improvement, move it as a 'withReducer' in the App container
   return connectRouter(history)(reducers);
