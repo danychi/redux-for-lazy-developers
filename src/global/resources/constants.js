@@ -12,6 +12,7 @@ export const DELETE_RESOURCE_FROM_STORE = 'rfld/resources/DELETE_RESOURCE_FROM_S
 
 export const RESOURCES = {
   posts: 'posts',
+  profile: 'profile',
 };
 
 export const RESOURCE_EVENTS = {

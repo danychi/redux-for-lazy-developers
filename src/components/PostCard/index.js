@@ -2,8 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Card from '../Card';
+import Button from '../Button';
+import HeartIcon from '../../assets/heart.svg';
+import Avatar from '../Avatar';
+import ImageCard from '../ImageCard';
 
-const PostCard = ({ photoUrl, caption, avatarUrl, username, location }) => (
+const PostCard = ({ photoUrl, caption, avatarUrl, username, location, onLikeClick }) => (
   <article>
     <Wrap>
       <Header>
@@ -15,8 +19,13 @@ const PostCard = ({ photoUrl, caption, avatarUrl, username, location }) => (
           <Location>{location}</Location>
         </MetadataContainer>
       </Header>
-      <PostCardImg src={photoUrl} alt={caption} />
+      <ImageCard src={photoUrl} alt={caption} />
       <Footer>
+        <Actions>
+          <Icon onClick={onLikeClick}>
+            <Logo src={HeartIcon} />
+          </Icon>
+        </Actions>
         <Comments>
           <Comment>
             <Username>{username}</Username>
@@ -33,8 +42,17 @@ const Wrap = styled(Card)`
   margin: 0 auto;
 `;
 
-const PostCardImg = styled.img`
-  width: 100%;
+const Actions = styled.div`
+  display: flex;
+`;
+
+const Icon = styled(Button)`
+  margin-right: 5px;
+`;
+
+const Logo = styled.img`
+  width: 24px;
+  height: 24px;
 `;
 
 const Header = styled.header`
@@ -48,11 +66,6 @@ const AvatarContainer = styled.div`
   height: 30px;
   margin-right: 10px;
   border: 1px solid #dbdbdb;
-  border-radius: 50%;
-`;
-
-const Avatar = styled.img`
-  width: 100%;
   border-radius: 50%;
 `;
 
@@ -91,6 +104,7 @@ PostCard.propTypes = {
   avatarUrl: PropTypes.string,
   username: PropTypes.string,
   location: PropTypes.string,
+  onLikeClick: PropTypes.func,
 };
 
 export default PostCard;

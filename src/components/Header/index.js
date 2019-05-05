@@ -6,19 +6,48 @@ import browserHistory from '../../router/history';
 import Container from '../Container';
 import Button from '../Button';
 
+const Header = ({ links, homeLogoSrc }) => (
+  <Wrapper>
+    <StyledContainer>
+      <Logo src={homeLogoSrc} onClick={() => browserHistory.push(HOMEPAGE_ROUTE)} />
+      <Navigation>
+        {links.map(({ href, name, src }) => (
+          <ButtonLink onClick={() => browserHistory.push(href)} key={name}>
+            <img src={src} alt={name} />
+          </ButtonLink>
+        ))}
+      </Navigation>
+    </StyledContainer>
+  </Wrapper>
+);
+
 const Wrapper = styled.header`
   height: 60px;
   width: 100%;
   position: fixed;
   top: 0;
-  display: flex;
   z-index: 1000;
   background-color: #fff;
   border-bottom: 1px solid #dbdbdb;
 `;
 
+const StyledContainer = styled(Container)`
+  display: flex;
+  position: relative;
+  height: 100%;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Navigation = styled.nav``;
+
 const ButtonLink = styled(Button)`
   margin-right: 16px;
+
+  img {
+    width: 35px;
+  }
 `;
 
 export const Logo = styled.img`
@@ -27,20 +56,6 @@ export const Logo = styled.img`
   padding: 10px 20px;
   object-fit: cover;
 `;
-
-const Header = ({ links, homeLogoSrc }) => (
-  <Container>
-    <Wrapper>
-      <Logo src={homeLogoSrc} onClick={() => browserHistory.push(HOMEPAGE_ROUTE)} />
-      {links.map(({ href, name, logo }) => (
-        <ButtonLink onClick={() => browserHistory.push(href)} key={name}>
-          {logo}
-          {name}
-        </ButtonLink>
-      ))}
-    </Wrapper>
-  </Container>
-);
 
 Header.propTypes = {
   links: PropTypes.array,

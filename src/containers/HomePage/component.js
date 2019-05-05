@@ -6,7 +6,7 @@ import Container from '../../components/Container';
 import PostCard from '../../components/PostCard';
 
 const HomePage = ({ posts }) => (
-  <Container>
+  <Container verticalMargin>
     <Grid>
       {Array.isArray(posts) &&
         !isEmpty(posts) &&

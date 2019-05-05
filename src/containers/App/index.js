@@ -11,6 +11,7 @@ import { headerLinks } from './constants';
 import { fetchResource } from '../../global/resources/actions';
 import { RESOURCES } from '../../global/resources/constants';
 import { fetchPosts } from '../../services/posts';
+import { fetchProfile } from '../../services/profile';
 
 const App = ({ children }) => (
   <Fragment>
@@ -25,7 +26,7 @@ const Wrapper = styled.div`
   display: block;
   width: 100%;
   min-height: 100%;
-  margin: 0 auto;
+  padding-top: 60px;
 `;
 
 App.propTypes = {
@@ -43,6 +44,7 @@ export default compose(
   lifecycle({
     componentDidMount() {
       this.props.fetchResource(RESOURCES.posts, fetchPosts);
+      this.props.fetchResource(RESOURCES.profile, fetchProfile);
     },
   })
 )(App);

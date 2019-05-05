@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
-import { compose, branch, renderComponent, withStateHandlers, withHandlers, lifecycle } from 'recompose';
+import { compose, branch, renderComponent, withStateHandlers, withHandlers } from 'recompose';
 import HomePageComponent from './component';
 import Loader from '../../components/Loader';
 import connector from './selectors';
-import { generateOwnPosts } from '../../mock/data';
 
 export default compose(
   connect(connector),

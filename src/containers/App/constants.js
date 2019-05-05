@@ -1,12 +1,9 @@
+import ProfileImg from '../../assets/profile.png';
+
 export const headerLinks = [
   {
-    name: 'Home',
-    logo: '🏠',
-    href: '/',
-  },
-  {
     name: 'Profile',
-    logo: '🙆‍♂️',
-    href: '/',
+    src: ProfileImg,
+    href: '/profile',
   },
 ];
