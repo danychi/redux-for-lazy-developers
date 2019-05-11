@@ -6,11 +6,11 @@ export default styled.div`
   position: relative;
   max-width: 1000px;
   margin: 60px auto;
-  padding: 0 16px;
+  padding: ${({ horizontalPadding }) => (horizontalPadding ? ' 0 16px' : 0)};
   margin: ${({ verticalMargin }) => (verticalMargin ? '30px 0' : 0)};
 
   ${media.tabletPortrait`
-    padding: 0 24px;
-    margin: ${({ verticalMargin }) => (verticalMargin ? '60px 0' : 0)};
+    padding: ${({ horizontalPadding }) => (horizontalPadding ? ' 0 24px' : 0)};
+    margin: ${({ verticalMargin }) => (verticalMargin ? '60px auto' : '0 auto')};
   `};
 `;

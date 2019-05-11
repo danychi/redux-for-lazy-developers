@@ -42,3 +42,17 @@ export function request(url, options) {
     .then(checkStatus)
     .then(parseJSON);
 }
+
+export function post(path, data) {
+  return fetch(path, {
+    method: 'post',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then(checkStatus)
+    .then(parseJSON)
+    .catch((error) => error);
+}

@@ -1,5 +1,5 @@
 import Loadable from 'react-loadable';
-import { HOMEPAGE_ROUTE, NOT_FOUND_ROUTE, PROFILE_ROUTE } from './constants';
+import { HOMEPAGE_ROUTE, NOT_FOUND_ROUTE, PROFILE_ROUTE, ADD_POST_ROUTE } from './constants';
 import Loader from '../components/Loader';
 
 const routeConfig = [
@@ -14,6 +14,12 @@ const routeConfig = [
     name: 'profilePage',
     exact: true,
     getModules: () => import('../containers/ProfilePage'),
+  },
+  {
+    path: ADD_POST_ROUTE,
+    name: 'addPostPage',
+    exact: true,
+    getModules: () => import('../containers/AddPostPage'),
   },
   {
     name: 'notFoundPage',

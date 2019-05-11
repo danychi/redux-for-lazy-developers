@@ -7,6 +7,7 @@ import {
   UPDATE_RESOURCE_FROM_STORE,
   CREATE_RESOURCE,
   CREATE_RESOURCE_IN_STORE,
+  CREATE_RESOURCE_FAILED,
 } from './constants';
 
 /**
@@ -118,42 +119,38 @@ export const updateResourceFromStore = (resourceFinder, updatedItem, idKey, cont
 /**
  * @param {Function} apiCall
  * @param {any} params
- * @param {String} resourceKey
- * @param {String} contentKey
+ * @param {String} resourcePath
  * @param {ReduxAction} successCallbackAction
  * @param {ReduxAction} failureCallbackAction
  * @return {ReduxAction}
  */
-export const createResource = (
-  apiCall,
-  params,
-  resourceKey,
-  contentKey,
-  successCallbackAction,
-  failureCallbackAction
-) => ({
+export const createResource = (apiCall, params, resourcePath, successCallbackAction, failureCallbackAction) => ({
   type: CREATE_RESOURCE,
   payload: {
     apiCall,
     params,
-    resourceKey,
-    contentKey,
+    resourcePath,
     successCallbackAction,
     failureCallbackAction,
   },
 });
 
 /**
- * @param {String} resourceKey
+ * @param {String} resourcePath
  * @param {Object} item
- * @param {String} contentKey
  * @return {ReduxAction}
  */
-export const createResourceInStore = (resourceKey, item, contentKey) => ({
+export const createResourceInStore = (resourcePath, item) => ({
   type: CREATE_RESOURCE_IN_STORE,
   payload: {
-    resourceKey,
+    resourcePath,
     item,
-    contentKey,
+  },
+});
+
+export const createResourceFailed = (resourcePath) => ({
+  type: CREATE_RESOURCE_FAILED,
+  payload: {
+    resourcePath,
   },
 });

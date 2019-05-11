@@ -7,10 +7,12 @@ import Header from './Header';
 import ProfileCard from './ProfileCard';
 import media from '../../styles/media';
 
-const ProfilePage = ({ ownPosts, details }) => (
+const ProfilePage = ({ ownPosts, user }) => (
   <div>
     {/* eslint-disable-next-line */}
-    <Container verticalMargin>{details && <Header details={details} />}</Container>
+    <Container verticalMargin horizontalPadding>
+      {user && <Header details={user} />}
+    </Container>
     <Grid>
       {Array.isArray(ownPosts) &&
         !isEmpty(ownPosts) &&
@@ -20,7 +22,7 @@ const ProfilePage = ({ ownPosts, details }) => (
 );
 
 ProfilePage.propTypes = {
-  details: PropTypes.object,
+  user: PropTypes.object,
   ownPosts: PropTypes.array,
 };
 

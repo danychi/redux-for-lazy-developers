@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
-import { compose, branch, renderComponent, withStateHandlers, withHandlers } from 'recompose';
-import HomePageComponent from './component';
-import Loader from '../../components/Loader';
+import { compose, withStateHandlers } from 'recompose';
+import ProfilePageComponent from './component';
 import connector from './selectors';
 
 export default compose(
@@ -13,7 +12,5 @@ export default compose(
     {
       setProp: () => (prop) => ({ [prop]: prop }),
     }
-  ),
-  withHandlers({}),
-  branch(({ isShowsLoading }) => isShowsLoading, renderComponent(Loader), renderComponent(HomePageComponent))
-)();
+  )
+)(ProfilePageComponent);

@@ -2,28 +2,36 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { HOMEPAGE_ROUTE } from '../../router/constants';
-import H1 from '../../components/H1';
+import { COLORS } from '../../styles/colors';
+import Container from '../../components/Container';
 
 const NotFoundPage = () => (
-  <Wrap>
-    <Title>Content not found</Title>
-    <StyledLink to={HOMEPAGE_ROUTE}>Go to home screen</StyledLink>
-  </Wrap>
+  <StyledWrap verticalMargin>
+    <div>
+      <Title>Sorry, this page isn't available.</Title>
+      <p>
+        The link you followed may be broken, or the page may have been removed.
+        <StyledLink to={HOMEPAGE_ROUTE}> Go back home</StyledLink>
+      </p>
+    </div>
+  </StyledWrap>
 );
 
-const Wrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-`;
-const Title = styled(H1)`
-  font-size: 30px;
+const Title = styled.h2`
+  font-size: 24px;
 `;
 
 const StyledLink = styled(Link)`
-  color: white;
+  text-decoration: none;
+  color: ${COLORS.link};
+`;
+
+const StyledWrap = styled(Container)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
 `;
 
 export default NotFoundPage;

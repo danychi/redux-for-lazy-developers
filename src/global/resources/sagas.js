@@ -1,12 +1,12 @@
 import { all, takeEvery, put, call } from 'redux-saga/effects';
-import isObject from 'lodash/isObject';
+import isPlainObject from 'lodash/isPlainObject';
 import { FETCH_RESOURCE, DELETE_RESOURCE, CREATE_RESOURCE, UPDATE_RESOURCE, RESOURCE_EVENTS } from './constants';
 import { updateResourceFromStore, createResourceInStore, deleteResourceFromStore, modifyResource } from './actions';
 
 export function* handleFetchResource({ payload }) {
   try {
     const { resourceKey, apiCall, params, nestIntoKey } = payload;
-    const data = yield call(apiCall, ...(isObject(params) ? Object.values(params) : [params]));
+    const data = yield call(apiCall, ...(isPlainObject(params) ? Object.values(params) : [params]));
     yield put(modifyResource(resourceKey, data, nestIntoKey));
   } catch (error) {
     document.dispatchEvent(
@@ -64,25 +64,19 @@ export function* handleUpdateResource({ payload }) {
 
 export function* handleCreateResource({ payload }) {
   try {
-    const { apiCall, params, resourceKey, contentKey, successCallbackAction } = payload;
-    const response = yield call(apiCall, ...(isObject(params) ? Object.values(params) : [params]));
+    const { apiCall, params, resourcePath, successCallbackAction } = payload;
+    const response = yield call(apiCall, params);
     // If a success call back action is defined, the default add to state behavior will be stopped
     if (successCallbackAction) {
       yield put(successCallbackAction(response));
       return;
     }
-    yield put(createResourceInStore(resourceKey, params.item, contentKey));
+    yield put(createResourceInStore(resourcePath, response));
   } catch (error) {
     const { failureCallbackAction } = payload;
     if (failureCallbackAction) {
       yield put(failureCallbackAction());
     }
-    document.dispatchEvent(
-      new CustomEvent(`${RESOURCE_EVENTS.errorCreating}-${payload.resourceKey}`, {
-        composed: true,
-        bubbles: true,
-      })
-    );
   }
 }
 
@@ -91,7 +85,6 @@ export function* watchForDeleteResource() {
 }
 
 export function* watchForFetchResource() {
-  console.log('what');
   yield takeEvery(FETCH_RESOURCE, handleFetchResource);
 }
 

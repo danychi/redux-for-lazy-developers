@@ -1,3 +1,4 @@
+import { lensPath, path, set } from 'ramda';
 import {
   MODIFY_RESOURCE,
   CREATE_RESOURCE_IN_STORE,
@@ -16,15 +17,10 @@ export default function resourcesReducer(state = initialState, { type, payload }
         [payload.resourceKey]: payload.data,
       };
     case CREATE_RESOURCE_IN_STORE: {
-      const { resourceKey, contentKey, item } = payload; // eslint-disable-line
-      const resource = state[resourceKey]; // eslint-disable-line
-      return {
-        ...state,
-        [resourceKey]: {
-          ...resource,
-          [contentKey]: [...resource[contentKey], item],
-        },
-      };
+      const { resourcePath, item } = payload;
+      const resource = path(resourcePath, state);
+      const resourceLens = lensPath(resourcePath);
+      return set(resourceLens, [item, ...resource], state);
     }
     case UPDATE_RESOURCE_FROM_STORE: {
       const { resourceFinder, idKey, contentKey, updatedItem } = payload;

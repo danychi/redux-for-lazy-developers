@@ -8,7 +8,7 @@ import Button from '../Button';
 
 const Header = ({ links, homeLogoSrc }) => (
   <Wrapper>
-    <StyledContainer>
+    <StyledContainer horizontalPadding>
       <Logo src={homeLogoSrc} onClick={() => browserHistory.push(HOMEPAGE_ROUTE)} />
       <Navigation>
         {links.map(({ href, name, src }) => (
@@ -43,7 +43,7 @@ const StyledContainer = styled(Container)`
 const Navigation = styled.nav``;
 
 const ButtonLink = styled(Button)`
-  margin-right: 16px;
+  margin-left: 16px;
 
   img {
     width: 35px;
@@ -53,7 +53,7 @@ const ButtonLink = styled(Button)`
 export const Logo = styled.img`
   cursor: pointer;
   width: 40px;
-  padding: 10px 20px;
+  padding: 10px 20px 10px 0;
   object-fit: cover;
 `;
 

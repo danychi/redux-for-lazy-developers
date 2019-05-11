@@ -6,7 +6,7 @@ import Li from '../../../components/Li';
 
 const ProfileDetails = ({ details }) => (
   <Wrap>
-    <Name>{details.name}</Name>
+    <Name>{details.username}</Name>
     <Counters>
       <CounterEntry>
         <strong>{details.postCount}</strong> posts

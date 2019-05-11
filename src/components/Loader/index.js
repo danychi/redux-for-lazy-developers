@@ -1,10 +1,10 @@
 import React from 'react';
-import Loader from 'react-loader-spinner';
+import Spinner from 'react-loader-spinner';
 import styled from 'styled-components';
 
-const Spinner = () => (
+const Loader = () => (
   <Wrap>
-    <Loader type="Bars" color="white" height="100" width="100" />
+    <Spinner type="TailSpin" color="black" height="100" width="100" />
   </Wrap>
 );
 
@@ -16,4 +16,4 @@ const Wrap = styled.div`
   align-items: center;
 `;
 
-export default Spinner;
+export default Loader;

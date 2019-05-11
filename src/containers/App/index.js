@@ -12,6 +12,7 @@ import { fetchResource } from '../../global/resources/actions';
 import { RESOURCES } from '../../global/resources/constants';
 import { fetchPosts } from '../../services/posts';
 import { fetchProfile } from '../../services/profile';
+import { fetchGallery } from '../../services/gallery';
 
 const App = ({ children }) => (
   <Fragment>
@@ -45,6 +46,7 @@ export default compose(
     componentDidMount() {
       this.props.fetchResource(RESOURCES.posts, fetchPosts);
       this.props.fetchResource(RESOURCES.profile, fetchProfile);
+      this.props.fetchResource(RESOURCES.gallery, fetchGallery);
     },
   })
 )(App);
