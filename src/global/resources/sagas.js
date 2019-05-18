@@ -4,28 +4,27 @@ import { FETCH_RESOURCE, DELETE_RESOURCE, CREATE_RESOURCE, UPDATE_RESOURCE, RESO
 import { updateResourceFromStore, createResourceInStore, deleteResourceFromStore, modifyResource } from './actions';
 
 export function* handleFetchResource({ payload }) {
+  const { resourceKey, apiCall, params, nestIntoKey } = payload;
   try {
-    const { resourceKey, apiCall, params, nestIntoKey } = payload;
     const data = yield call(apiCall, ...(isPlainObject(params) ? Object.values(params) : [params]));
     yield put(modifyResource(resourceKey, data, nestIntoKey));
   } catch (error) {
     document.dispatchEvent(
-      new CustomEvent(`${RESOURCE_EVENTS.errorFetching}-${payload.name}`, { composed: true, bubbles: true })
+      new CustomEvent(`${RESOURCE_EVENTS.errorFetching}-${resourceKey}`, { composed: true, bubbles: true })
     );
   }
 }
 
 export function* handleDeleteResource({ payload }) {
-  const { id, resourceFinder, deleteApiCall, name, idKey, contentKey } = payload;
+  const { id, resourceFinder, deleteApiCall, idKey } = payload;
   const resourceName = Array.isArray(resourceFinder) ? resourceFinder[0] : resourceFinder;
   try {
     yield call(deleteApiCall, id);
-    yield put(deleteResourceFromStore(resourceFinder, id, idKey, contentKey));
+    yield put(deleteResourceFromStore(resourceFinder, id, idKey));
     document.dispatchEvent(
       new CustomEvent(`${RESOURCE_EVENTS.successDeleting}-${resourceName}`, {
         composed: true,
         bubbles: true,
-        detail: { id, name },
       })
     );
   } catch ({ response }) {
@@ -33,7 +32,7 @@ export function* handleDeleteResource({ payload }) {
       new CustomEvent(`${RESOURCE_EVENTS.errorDeleting}-${resourceName}`, {
         composed: true,
         bubbles: true,
-        detail: { id, name, status: response.status },
+        detail: { id, status: response.status },
       })
     );
   }
@@ -41,11 +40,11 @@ export function* handleDeleteResource({ payload }) {
 
 // Handles PUT calls to modify a resource
 export function* handleUpdateResource({ payload }) {
-  const { apiCall, resourceFinder, item, idKey, contentKey } = payload;
+  const { apiCall, resourceFinder, item, idKey } = payload;
   const resourceName = Array.isArray(resourceFinder) ? resourceFinder[0] : resourceFinder;
   try {
-    yield call(apiCall, item);
-    yield put(updateResourceFromStore(resourceFinder, item, idKey, contentKey));
+    yield call(apiCall, item, item[idKey]);
+    yield put(updateResourceFromStore(resourceFinder, item, idKey));
     document.dispatchEvent(
       new CustomEvent(`${RESOURCE_EVENTS.successUpdating}-${resourceName}`, {
         composed: true,

@@ -3,7 +3,7 @@ import { compose, withStateHandlers, withHandlers } from 'recompose';
 import connector from './selectors';
 import AddPostPage from './component';
 import { mapDispatchers } from '../../utils/internal/redux-utils';
-import { createResource } from '../../global/resources/actions';
+import { createResource, modifyResource } from '../../global/resources/actions';
 import { buildPost } from './utils';
 import { createPost } from '../../services/posts';
 import { RESOURCES } from '../../global/resources/constants';
@@ -37,7 +37,7 @@ export default compose(
       const newPost = buildPost(selectedImage.photoUrl, caption, location, user);
       createResourceAction(createPost, newPost, [RESOURCES.posts]);
       // This call wouldn't be necessary if you have a real BE
-      createResourceAction(createPost, newPost, [RESOURCES.profile, 'posts']);
+      modifyResource([RESOURCES.profile, 'posts'], newPost);
       browserHistory.push(HOMEPAGE_ROUTE);
     },
   })

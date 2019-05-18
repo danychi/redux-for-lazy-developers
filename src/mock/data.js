@@ -9,6 +9,8 @@ export const generatePosts = () =>
     createdAt: faker.date.past(),
     location: faker.address.city(),
     likesCount: faker.random.number(),
+    comments: times(5, createRandomComment),
+    likedByUser: faker.random.boolean(),
     user: { id: faker.random.uuid(), username: faker.internet.userName(), avatarUrl: faker.image.avatar() },
   }));
 
@@ -22,3 +24,11 @@ export const generateOwnPosts = () =>
     likesCount: faker.random.number(),
     user: { id: faker.random.uuid(), username: faker.internet.userName(), avatarUrl: faker.image.avatar() },
   }));
+
+const createRandomComment = () => ({
+  id: faker.random.uuid(),
+  body: faker.random.words(),
+  createdAt: faker.date.past(),
+  userId: faker.random.uuid(),
+  username: faker.internet.userName(),
+});

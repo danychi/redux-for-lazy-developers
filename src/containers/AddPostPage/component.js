@@ -38,7 +38,7 @@ const AddPostPage = ({
           setCaption={setCaption}
           setLocation={setLocation}
         />
-        <ActionBar onClickBack={() => setStep(0)} onClickNext={() => {}} />
+        <ActionBar onClickBack={() => setStep(0)} onClickNext={onSavePost} />
       </Fragment>
     )}
   </StyledContainer>

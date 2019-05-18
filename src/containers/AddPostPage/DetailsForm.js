@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import ImageCard from '../../components/ImageCard';
+import Image from '../../components/Image';
 import Avatar from '../../components/Avatar';
 import TextArea from '../../components/TextArea';
 import Input from '../../components/Input';
@@ -17,7 +17,7 @@ const DetailsForm = ({ selectedImage, profileImage, onSavePost, setCaption, setL
         name="caption"
         onChange={setCaption}
       />
-      <ImageCard src={selectedImage} />
+      <Image src={selectedImage} />
     </CaptionWrap>
     <LocationWrap name="location">
       <Label>
@@ -53,6 +53,7 @@ const Label = styled.label`
   align-items: center;
   display: grid;
   grid-template-columns: 1fr 5fr 2fr;
+  white-space: nowrap;
 `;
 
 const LocationInput = styled(Input)`

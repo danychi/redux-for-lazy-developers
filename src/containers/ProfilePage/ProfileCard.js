@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import ImageCard from '../../components/ImageCard';
+import Image from '../../components/Image';
 
 const ProfileCard = ({ photoUrl, alt }) => (
   <Wrap>
     <Overlay />
-    <ImageCard src={photoUrl} alt={alt} />
+    <Image src={photoUrl} alt={alt} />
   </Wrap>
 );
 

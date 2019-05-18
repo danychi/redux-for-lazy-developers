@@ -44,22 +44,18 @@ export const modifyResource = (resourceKey, data, nestIntoKey) => ({
 
 /**
  * @param {String/<String>} resourceFinder - it can be a key string or a path
- * @param {String} id
  * @param {Function} deleteApiCall
- * @param {String} name
+ * @param {String} id
  * @param {String} idKey
- * @param {String} contentKey
  * @return {ReduxAction}
  */
-export const deleteResource = (resourceFinder, id, deleteApiCall, name = '', idKey, contentKey = 'content') => ({
+export const deleteResource = (resourceFinder, deleteApiCall, id, idKey) => ({
   type: DELETE_RESOURCE,
   payload: {
     resourceFinder,
-    id,
     deleteApiCall,
-    name,
+    id,
     idKey,
-    contentKey,
   },
 });
 
@@ -67,16 +63,14 @@ export const deleteResource = (resourceFinder, id, deleteApiCall, name = '', idK
  * @param {String/<String>} resourceFinder - it can be a key string or a path
  * @param {Object} id
  * @param {String} idKey
- * @param {String} contentKey
  * @return {ReduxAction}
  */
-export const deleteResourceFromStore = (resourceFinder, id, idKey, contentKey = 'content') => ({
+export const deleteResourceFromStore = (resourceFinder, id, idKey) => ({
   type: DELETE_RESOURCE_FROM_STORE,
   payload: {
     resourceFinder,
     id,
     idKey,
-    contentKey,
   },
 });
 
@@ -85,17 +79,15 @@ export const deleteResourceFromStore = (resourceFinder, id, idKey, contentKey = 
  * @param {Function} apiCall
  * @param {Object} item
  * @param {String} idKey
- * @param {String} contentKey
  * @return {ReduxAction}
  */
-export const updateResource = (resourceFinder, apiCall, item, idKey, contentKey = 'content') => ({
+export const updateResource = (resourceFinder, apiCall, item, idKey) => ({
   type: UPDATE_RESOURCE,
   payload: {
     resourceFinder,
     apiCall,
     item,
     idKey,
-    contentKey,
   },
 });
 
@@ -103,16 +95,14 @@ export const updateResource = (resourceFinder, apiCall, item, idKey, contentKey 
  * @param {String/<String>} resourceFinder - it can be a key string or a path
  * @param {Object} updatedItem
  * @param {String} idKey
- * @param {String} contentKey
  * @return {ReduxAction}
  */
-export const updateResourceFromStore = (resourceFinder, updatedItem, idKey, contentKey) => ({
+export const updateResourceFromStore = (resourceFinder, updatedItem, idKey) => ({
   type: UPDATE_RESOURCE_FROM_STORE,
   payload: {
     resourceFinder,
     updatedItem,
     idKey,
-    contentKey,
   },
 });
 

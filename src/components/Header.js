@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { HOMEPAGE_ROUTE } from '../../router/constants';
-import browserHistory from '../../router/history';
-import Container from '../Container';
-import Button from '../Button';
+import { HOMEPAGE_ROUTE } from '../router/constants';
+import browserHistory from '../router/history';
+import Container from './Container';
+import Button from './Button';
 
 const Header = ({ links, homeLogoSrc }) => (
   <Wrapper>

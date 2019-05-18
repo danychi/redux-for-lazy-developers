@@ -2,101 +2,48 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Card from '../Card';
-import Button from '../Button';
-import HeartIcon from '../../assets/heart.svg';
-import Avatar from '../Avatar';
-import ImageCard from '../ImageCard';
+import Image from '../Image';
+import PostCardHeader from './PostCardHeader';
+import PostCardFooter from './PostCardFooter';
 
-const PostCard = ({ photoUrl, caption, avatarUrl, username, location, onLikeClick }) => (
+const PostCard = ({
+  photoUrl,
+  caption,
+  avatarUrl,
+  username,
+  location,
+  comments,
+  likesCount,
+  likedByUser,
+  onLike,
+  onClickOpenMoreOptions,
+  onAddComment,
+  id,
+  post,
+}) => (
   <article>
     <Wrap>
-      <Header>
-        <AvatarContainer>
-          <Avatar src={avatarUrl} />
-        </AvatarContainer>
-        <MetadataContainer>
-          <Username>{username}</Username>
-          <Location>{location}</Location>
-        </MetadataContainer>
-      </Header>
-      <ImageCard src={photoUrl} alt={caption} />
-      <Footer>
-        <Actions>
-          <Icon onClick={onLikeClick}>
-            <Logo src={HeartIcon} />
-          </Icon>
-        </Actions>
-        <Comments>
-          <Comment>
-            <Username>{username}</Username>
-            <Description>{caption}</Description>
-          </Comment>
-        </Comments>
-      </Footer>
+      <PostCardHeader
+        avatarUrl={avatarUrl}
+        username={username}
+        location={location}
+        onClickOpenMoreOptions={onClickOpenMoreOptions}
+      />
+      <Image src={photoUrl} alt={caption} />
+      <PostCardFooter
+        caption={caption}
+        username={username}
+        comments={comments}
+        likesCount={likesCount}
+        likedByUser={likedByUser}
+        onLike={onLike}
+        onAddComment={onAddComment}
+        id={id}
+        post={post}
+      />
     </Wrap>
   </article>
 );
-
-const Wrap = styled(Card)`
-  max-width: 600px;
-  margin: 0 auto;
-`;
-
-const Actions = styled.div`
-  display: flex;
-`;
-
-const Icon = styled(Button)`
-  margin-right: 5px;
-`;
-
-const Logo = styled.img`
-  width: 24px;
-  height: 24px;
-`;
-
-const Header = styled.header`
-  display: flex;
-  padding: 15px 20px;
-  align-items: center;
-`;
-
-const AvatarContainer = styled.div`
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
-  border: 1px solid #dbdbdb;
-  border-radius: 50%;
-`;
-
-const MetadataContainer = styled.div`
-  display: inline-grid;
-`;
-
-const Username = styled.a`
-  font-weight: bold;
-  font-size: 15px;
-`;
-
-const Location = styled.span`
-  font-size: 14px;
-`;
-
-const Footer = styled.footer`
-  padding: 15px 20px;
-`;
-
-const Comments = styled.div``;
-
-const Comment = styled.div`
-  display: inline-block;
-  flex-shrink: 1;
-  min-width: 0;
-`;
-
-const Description = styled.span`
-  margin-left: 4px;
-`;
 
 PostCard.propTypes = {
   photoUrl: PropTypes.string,
@@ -104,7 +51,20 @@ PostCard.propTypes = {
   avatarUrl: PropTypes.string,
   username: PropTypes.string,
   location: PropTypes.string,
-  onLikeClick: PropTypes.func,
+  onLike: PropTypes.func,
+  comments: PropTypes.array,
+  likesCount: PropTypes.number,
+  likedByUser: PropTypes.bool,
+  onClickOpenMoreOptions: PropTypes.func,
+  onAddComment: PropTypes.func,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  post: PropTypes.object,
 };
+
+const Wrap = styled(Card)`
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 14px;
+`;
 
 export default PostCard;

@@ -56,3 +56,31 @@ export function post(path, data) {
     .then(parseJSON)
     .catch((error) => error);
 }
+
+export function put(path, data) {
+  return fetch(path, {
+    method: 'put',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then(checkStatus)
+    .then(parseJSON)
+    .catch((error) => error);
+}
+
+export function deleteMethod(path, data) {
+  return fetch(path, {
+    method: 'delete',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then(checkStatus)
+    .then(parseJSON)
+    .catch((error) => error);
+}

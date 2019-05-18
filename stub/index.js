@@ -18,4 +18,14 @@ router.post('/*', async (req, res) => {
   return res.send(body);
 });
 
+router.put('/*', async (req, res) => {
+  const { body } = req;
+  return res.send(body);
+});
+
+router.delete('/*', async (req, res) => {
+  const { params } = req;
+  return res.send(params);
+});
+
 module.exports = router;
