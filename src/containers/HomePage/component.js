@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Container from '../../components/Container';
 import PostCard from '../../components/PostCard';
-import MoreOptionsModal from './MoreOptionsModal';
+import MoreOptionsModal from '../../components/MoreOptionsModal';
 
 const HomePage = ({
   posts,
@@ -14,6 +14,8 @@ const HomePage = ({
   isMoreOptionsModalVisible,
   onClickOpenMoreOptions,
   onAddComment,
+  onDeleteComment,
+  userId,
 }) => (
   <Container verticalMargin>
     <Grid>
@@ -35,6 +37,8 @@ const HomePage = ({
             onAddComment={onAddComment}
             id={post.id}
             post={post}
+            onDeleteComment={onDeleteComment}
+            userId={userId}
           />
         ))}
       <MoreOptionsModal
@@ -54,6 +58,8 @@ HomePage.propTypes = {
   isMoreOptionsModalVisible: PropTypes.bool,
   onClickOpenMoreOptions: PropTypes.func,
   onAddComment: PropTypes.func,
+  onDeleteComment: PropTypes.func,
+  userId: PropTypes.string,
 };
 
 const Grid = styled.div`

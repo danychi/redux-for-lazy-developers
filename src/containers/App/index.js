@@ -13,6 +13,7 @@ import { RESOURCES } from '../../global/resources/constants';
 import { fetchPosts } from '../../services/posts';
 import { fetchProfile } from '../../services/profile';
 import { fetchGallery } from '../../services/gallery';
+import { generatePosts } from '../../mock/data';
 
 const App = ({ children }) => (
   <Fragment>

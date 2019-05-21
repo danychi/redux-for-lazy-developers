@@ -15,11 +15,13 @@ const PostCardHeader = ({ avatarUrl, username, location, onClickOpenMoreOptions 
       <Username>{username}</Username>
       <Location>{location}</Location>
     </MetadataContainer>
-    <MoreOptionsWrap>
-      <Icon onClick={onClickOpenMoreOptions}>
-        <Image src={ThreeDots} />
-      </Icon>
-    </MoreOptionsWrap>
+    {onClickOpenMoreOptions && (
+      <MoreOptionsWrap>
+        <Icon onClick={onClickOpenMoreOptions}>
+          <Image src={ThreeDots} />
+        </Icon>
+      </MoreOptionsWrap>
+    )}
   </Header>
 );
 

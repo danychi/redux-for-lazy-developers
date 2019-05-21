@@ -11,11 +11,11 @@ export const initialState = {};
 
 export default function resourcesReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case MODIFY_RESOURCE:
-      return {
-        ...state,
-        [payload.resourceKey]: payload.data,
-      };
+    case MODIFY_RESOURCE: {
+      const { resourcePath, data } = payload;
+      const resourceLens = lensPath(resourcePath);
+      return set(resourceLens, data, state);
+    }
     case CREATE_RESOURCE_IN_STORE: {
       const { resourcePath, item } = payload;
       const resource = path(resourcePath, state);
@@ -23,12 +23,12 @@ export default function resourcesReducer(state = initialState, { type, payload }
       return set(resourceLens, [item, ...resource], state);
     }
     case UPDATE_RESOURCE_FROM_STORE: {
-      const { resourceFinder, idKey, contentKey, updatedItem } = payload;
-      return updateResourceItemFromState(state, resourceFinder, updatedItem, idKey, contentKey);
+      const { resourcePath, idKey, updatedItem } = payload;
+      return updateResourceItemFromState(state, resourcePath, updatedItem, idKey);
     }
     case DELETE_RESOURCE_FROM_STORE: {
-      const { resourceFinder, id, idKey, contentKey } = payload; //eslint-disable-line
-      return removeResourceItemFromState(state, resourceFinder, id, idKey, contentKey);
+      const { resourcePath, id, idKey } = payload; //eslint-disable-line
+      return removeResourceItemFromState(state, resourcePath, id, idKey);
     }
     default:
       return state;

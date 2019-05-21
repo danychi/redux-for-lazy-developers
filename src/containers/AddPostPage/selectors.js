@@ -7,4 +7,5 @@ export default createStructuredSelector({
   gallery: getResourceByKey(RESOURCES.gallery),
   user: getResourceByKey(RESOURCES.profile, 'user'),
   isLoading: getResourceLoadingStatus(RESOURCES.posts),
+  userPosts: getResourceByKey(RESOURCES.profile, 'posts'),
 });

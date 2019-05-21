@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Modal from 'react-modal';
-import Card from '../../components/Card';
-import Button from '../../components/Button';
+import Card from './Card';
+import Button from './Button';
 Modal.setAppElement('#root');
 
 const MoreOptionsModal = ({ actions, isOpen, onRequestClose }) => (

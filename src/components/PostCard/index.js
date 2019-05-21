@@ -20,6 +20,8 @@ const PostCard = ({
   onAddComment,
   id,
   post,
+  onDeleteComment,
+  userId,
 }) => (
   <article>
     <Wrap>
@@ -40,6 +42,8 @@ const PostCard = ({
         onAddComment={onAddComment}
         id={id}
         post={post}
+        onDeleteComment={onDeleteComment}
+        userId={userId}
       />
     </Wrap>
   </article>
@@ -59,6 +63,8 @@ PostCard.propTypes = {
   onAddComment: PropTypes.func,
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   post: PropTypes.object,
+  onDeleteComment: PropTypes.func,
+  userId: PropTypes.string,
 };
 
 const Wrap = styled(Card)`

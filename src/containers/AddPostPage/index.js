@@ -10,7 +10,7 @@ import { RESOURCES } from '../../global/resources/constants';
 import { HOMEPAGE_ROUTE } from '../../router/constants';
 import browserHistory from '../../router/history';
 
-const dispatchers = mapDispatchers({ createResource });
+const dispatchers = mapDispatchers({ createResource, modifyResource });
 
 export default compose(
   connect(
@@ -32,12 +32,20 @@ export default compose(
     }
   ),
   withHandlers({
-    onSavePost: ({ caption, location, selectedImage, createResource: createResourceAction, user }) => (e) => {
+    onSavePost: ({
+      caption,
+      location,
+      selectedImage,
+      createResource: createResourceAction,
+      user,
+      userPosts,
+      modifyResource,
+    }) => (e) => {
       e.preventDefault();
       const newPost = buildPost(selectedImage.photoUrl, caption, location, user);
       createResourceAction(createPost, newPost, [RESOURCES.posts]);
       // This call wouldn't be necessary if you have a real BE
-      modifyResource([RESOURCES.profile, 'posts'], newPost);
+      modifyResource([RESOURCES.profile, 'posts'], [newPost, ...userPosts]);
       browserHistory.push(HOMEPAGE_ROUTE);
     },
   })

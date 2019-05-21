@@ -19,3 +19,8 @@ export const deletePost = async (id) => {
   const result = await deleteMethod(`${SERVER_DOMAIN}/${POSTS_URL}/${id}`);
   return result;
 };
+
+export const deleteComment = async (id) => {
+  const result = await deleteMethod(`${SERVER_DOMAIN}/${POSTS_URL}/comments/${id}`);
+  return result;
+};

@@ -2,8 +2,8 @@ import faker from 'faker';
 import times from 'lodash/times';
 
 export const generatePosts = () =>
-  times(100, (n) => ({
-    id: n,
+  times(100, () => ({
+    id: faker.random.uuid(),
     photoUrl: `https://picsum.photos/640/480/?image=${faker.random.number(1084)}`,
     caption: faker.random.words(),
     createdAt: faker.date.past(),

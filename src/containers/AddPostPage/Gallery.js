@@ -28,6 +28,7 @@ Gallery.propTypes = {
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-gap: 0 2px;
 `;
 
 export default Gallery;

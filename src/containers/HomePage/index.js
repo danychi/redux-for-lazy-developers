@@ -7,8 +7,10 @@ import connector from './selectors';
 import { mapDispatchers } from '../../utils/internal/redux-utils';
 import { updateResource, deleteResource } from '../../global/resources/actions';
 import { RESOURCES, RESOURCE_EVENTS } from '../../global/resources/constants';
-import { updatePost, deletePost } from '../../services/posts';
-import { createComment } from './utils';
+import { updatePost, deletePost, deleteComment } from '../../services/posts';
+import { createComment } from '../../utils/data';
+import { POST_DETAILS_ROUTE } from '../../router/constants';
+import browserHistory from '../../router/history';
 
 const dispatchers = mapDispatchers({ updateResource, deleteResource });
 
@@ -28,25 +30,7 @@ export default compose(
     }
   ),
   withHandlers({
-    onLike: ({ updateResource }) => (post) => {
-      const updatedPost = {
-        ...post,
-        likedByUser: !post.likedByUser,
-        likesCount: post.likesCount + (post.likedByUser ? 1 : -1),
-      };
-      updateResource(RESOURCES.posts, updatePost, updatedPost, 'id');
-    },
-    onClickOpenMoreOptions: ({ updateSelectedPost, updateMoreOptionsModalVisibility }) => (post) => {
-      updateSelectedPost(post);
-      updateMoreOptionsModalVisibility(true);
-    },
-    deletePost: ({ selectedPost, deleteResource }) => () => {
-      // console.log('lol');
-      deleteResource(RESOURCES.posts, deletePost, selectedPost.id, 'id');
-    },
-    onDeleteSuccessful: ({ updateMoreOptionsModalVisibility }) => () => {
-      updateMoreOptionsModalVisibility(false);
-    },
+    // Create comments
     onAddComment: ({ updateResource, userId, username }) => (e, post) => {
       e.preventDefault();
       const commentInput = document.getElementById(`add-comment-input-${post.id}`);
@@ -59,8 +43,34 @@ export default compose(
         // Reset input
         commentInput.value = '';
         // Update the post with the new data
-        updateResource(RESOURCES.posts, updatePost, updatedPost, 'id');
+        updateResource([RESOURCES.posts], updatePost, updatedPost, 'id');
       }
+    },
+    // Update post
+    onLike: ({ updateResource }) => (post) => {
+      const updatedPost = {
+        ...post,
+        likedByUser: !post.likedByUser,
+        likesCount: post.likesCount + (post.likedByUser ? -1 : 1),
+      };
+      updateResource([RESOURCES.posts], updatePost, updatedPost, 'id');
+    },
+    onClickOpenMoreOptions: ({ updateSelectedPost, updateMoreOptionsModalVisibility }) => (post) => {
+      updateSelectedPost(post);
+      updateMoreOptionsModalVisibility(true);
+    },
+    // Delete post
+    deletePost: ({ selectedPost, deleteResource }) => () => {
+      deleteResource([RESOURCES.posts], deletePost, selectedPost.id, 'id');
+    },
+    onDeleteSuccessful: ({ updateMoreOptionsModalVisibility }) => () => {
+      updateMoreOptionsModalVisibility(false);
+    },
+    // Delete comment
+    onDeleteComment: ({ posts, deleteResource }) => (postId, commentId) => {
+      const postIndex = posts.findIndex((p) => p.id === postId);
+      const resourceFinder = [RESOURCES.posts, postIndex, 'comments'];
+      deleteResource(resourceFinder, deleteComment, commentId, 'id');
     },
   }),
   withProps(({ deletePost, selectedPost, userId, updateMoreOptionsModalVisibility }) => {
@@ -75,7 +85,11 @@ export default compose(
         ...(!isSelectedPostMadeByCurrentUser
           ? [{ text: 'Report inappropriate', isSevere: true, onClick: () => updateMoreOptionsModalVisibility(false) }]
           : []),
-        { text: 'Go to post', isSevere: false, onClick: () => updateMoreOptionsModalVisibility(false) },
+        {
+          text: 'Go to post',
+          isSevere: false,
+          onClick: () => browserHistory.push(`${POST_DETAILS_ROUTE}/${selectedPost.id}`),
+        },
         { text: 'Embed', isSevere: false, onClick: () => updateMoreOptionsModalVisibility(false) },
         { text: 'Share', isSevere: false, onClick: () => updateMoreOptionsModalVisibility(false) },
         { text: 'Copy Link', isSevere: false, onClick: () => updateMoreOptionsModalVisibility(false) },

@@ -1,16 +1,15 @@
 import { connect } from 'react-redux';
-import { compose, withStateHandlers } from 'recompose';
-import ProfilePageComponent from './component';
+import { compose, withHandlers } from 'recompose';
 import connector from './selectors';
+import ProfilePageComponent from './component';
+import browserHistory from '../../router/history';
+import { POST_DETAILS_ROUTE } from '../../router/constants';
 
 export default compose(
   connect(connector),
-  withStateHandlers(
-    {
-      prop: null,
+  withHandlers({
+    onClickPost: () => ({ id }) => {
+      browserHistory.push(`${POST_DETAILS_ROUTE}/${id}`);
     },
-    {
-      setProp: () => (prop) => ({ [prop]: prop }),
-    }
-  )
+  })
 )(ProfilePageComponent);

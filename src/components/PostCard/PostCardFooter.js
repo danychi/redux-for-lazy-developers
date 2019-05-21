@@ -9,11 +9,23 @@ import Heart from '../../assets/heart.svg';
 import HeartFilled from '../../assets/heart-red.svg';
 import Input from '../Input';
 
-const PostCardFooter = ({ caption, username, comments, likesCount, likedByUser, onLike, onAddComment, id, post }) => (
+const PostCardFooter = ({
+  caption,
+  username,
+  comments,
+  likesCount,
+  likedByUser,
+  onLike,
+  onAddComment,
+  id,
+  post,
+  onDeleteComment,
+  userId,
+}) => (
   <Footer>
     <Actions>
       <Icon onClick={onLike}>
-        <Image src={likedByUser ? Heart : HeartFilled} />
+        <Image src={likedByUser ? HeartFilled : Heart} />
       </Icon>
     </Actions>
     <LikesCounter>
@@ -21,13 +33,23 @@ const PostCardFooter = ({ caption, username, comments, likesCount, likedByUser, 
     </LikesCounter>
     <Comments>
       <Comment key={username} username={username} comment={caption} />
-      {comments && comments.map(({ username, body }, id) => <Comment key={id} username={username} comment={body} />)}
+      {comments &&
+        comments.map((comment) => (
+          <Comment
+            key={comment.id}
+            username={comment.username}
+            comment={comment.body}
+            onClickDelete={userId === comment.userId ? () => onDeleteComment(id, comment.id) : null}
+          />
+        ))}
     </Comments>
-    <AddCommentWrap>
-      <StyledForm onSubmit={(e) => onAddComment(e, post)}>
-        <StyledInput placeholder="Add a comment..." id={`add-comment-input-${id}`} />
-      </StyledForm>
-    </AddCommentWrap>
+    {onAddComment && (
+      <AddCommentWrap>
+        <StyledForm onSubmit={(e) => onAddComment(e, post)}>
+          <StyledInput placeholder="Add a comment..." id={`add-comment-input-${id}`} />
+        </StyledForm>
+      </AddCommentWrap>
+    )}
   </Footer>
 );
 
@@ -41,6 +63,8 @@ PostCardFooter.propTypes = {
   onAddComment: PropTypes.func,
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   post: PropTypes.object,
+  onDeleteComment: PropTypes.func,
+  userId: PropTypes.string,
 };
 
 const Actions = styled.div`

@@ -7,6 +7,8 @@ export const buildPost = (photoUrl, caption, location, user) => ({
   createdAt: new Date().toISOString(),
   location,
   likesCount: 0,
+  likedByUser: false,
+  comments: [],
   user: {
     id: user.id,
     username: user.username,

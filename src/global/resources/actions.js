@@ -14,45 +14,41 @@ import {
  * @param {String} resourceKey
  * @param {Function} apiCall
  * @param {any} params
- * @param {String} nestIntoKey - Used for nesting the fetched content in a key like 'content'
  * @return {ReduxAction}
  */
-export const fetchResource = (resourceKey, apiCall, params, nestIntoKey) => ({
+export const fetchResource = (resourceKey, apiCall, params) => ({
   type: FETCH_RESOURCE,
   payload: {
     resourceKey,
     apiCall,
     params,
-    nestIntoKey,
   },
 });
 
 /**
- * @param {String} resourceKey
+ * @param {String} resourcePath
  * @param {any} data
- * @param {String} nestIntoKey - Used for nesting the data in a key like 'content'
  * @return {ReduxAction}
  */
-export const modifyResource = (resourceKey, data, nestIntoKey) => ({
+export const modifyResource = (resourcePath, data) => ({
   type: MODIFY_RESOURCE,
   payload: {
-    resourceKey,
+    resourcePath,
     data,
-    nestIntoKey,
   },
 });
 
 /**
- * @param {String/<String>} resourceFinder - it can be a key string or a path
+ * @param {String/<String>} resourcePath
  * @param {Function} deleteApiCall
  * @param {String} id
  * @param {String} idKey
  * @return {ReduxAction}
  */
-export const deleteResource = (resourceFinder, deleteApiCall, id, idKey) => ({
+export const deleteResource = (resourcePath, deleteApiCall, id, idKey) => ({
   type: DELETE_RESOURCE,
   payload: {
-    resourceFinder,
+    resourcePath,
     deleteApiCall,
     id,
     idKey,
@@ -60,31 +56,31 @@ export const deleteResource = (resourceFinder, deleteApiCall, id, idKey) => ({
 });
 
 /**
- * @param {String/<String>} resourceFinder - it can be a key string or a path
+ * @param {String/<String>} resourcePath
  * @param {Object} id
  * @param {String} idKey
  * @return {ReduxAction}
  */
-export const deleteResourceFromStore = (resourceFinder, id, idKey) => ({
+export const deleteResourceFromStore = (resourcePath, id, idKey) => ({
   type: DELETE_RESOURCE_FROM_STORE,
   payload: {
-    resourceFinder,
+    resourcePath,
     id,
     idKey,
   },
 });
 
 /**
- * @param {String/<String>} resourceFinder - it can be a key string or a path
+ * @param {String/<String>} resourcePath
  * @param {Function} apiCall
  * @param {Object} item
  * @param {String} idKey
  * @return {ReduxAction}
  */
-export const updateResource = (resourceFinder, apiCall, item, idKey) => ({
+export const updateResource = (resourcePath, apiCall, item, idKey) => ({
   type: UPDATE_RESOURCE,
   payload: {
-    resourceFinder,
+    resourcePath,
     apiCall,
     item,
     idKey,
@@ -92,15 +88,15 @@ export const updateResource = (resourceFinder, apiCall, item, idKey) => ({
 });
 
 /**
- * @param {String/<String>} resourceFinder - it can be a key string or a path
+ * @param {String/<String>} resourcePath
  * @param {Object} updatedItem
  * @param {String} idKey
  * @return {ReduxAction}
  */
-export const updateResourceFromStore = (resourceFinder, updatedItem, idKey) => ({
+export const updateResourceFromStore = (resourcePath, updatedItem, idKey) => ({
   type: UPDATE_RESOURCE_FROM_STORE,
   payload: {
-    resourceFinder,
+    resourcePath,
     updatedItem,
     idKey,
   },

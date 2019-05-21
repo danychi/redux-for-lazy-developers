@@ -7,7 +7,7 @@ export function* handleFetchResource({ payload }) {
   const { resourceKey, apiCall, params, nestIntoKey } = payload;
   try {
     const data = yield call(apiCall, ...(isPlainObject(params) ? Object.values(params) : [params]));
-    yield put(modifyResource(resourceKey, data, nestIntoKey));
+    yield put(modifyResource([resourceKey], data, nestIntoKey));
   } catch (error) {
     document.dispatchEvent(
       new CustomEvent(`${RESOURCE_EVENTS.errorFetching}-${resourceKey}`, { composed: true, bubbles: true })
@@ -16,11 +16,11 @@ export function* handleFetchResource({ payload }) {
 }
 
 export function* handleDeleteResource({ payload }) {
-  const { id, resourceFinder, deleteApiCall, idKey } = payload;
-  const resourceName = Array.isArray(resourceFinder) ? resourceFinder[0] : resourceFinder;
+  const { id, resourcePath, deleteApiCall, idKey } = payload;
+  const resourceName = resourcePath[0];
   try {
     yield call(deleteApiCall, id);
-    yield put(deleteResourceFromStore(resourceFinder, id, idKey));
+    yield put(deleteResourceFromStore(resourcePath, id, idKey));
     document.dispatchEvent(
       new CustomEvent(`${RESOURCE_EVENTS.successDeleting}-${resourceName}`, {
         composed: true,
@@ -40,11 +40,11 @@ export function* handleDeleteResource({ payload }) {
 
 // Handles PUT calls to modify a resource
 export function* handleUpdateResource({ payload }) {
-  const { apiCall, resourceFinder, item, idKey } = payload;
-  const resourceName = Array.isArray(resourceFinder) ? resourceFinder[0] : resourceFinder;
+  const { apiCall, resourcePath, item, idKey } = payload;
+  const resourceName = resourcePath[0];
   try {
     yield call(apiCall, item, item[idKey]);
-    yield put(updateResourceFromStore(resourceFinder, item, idKey));
+    yield put(updateResourceFromStore(resourcePath, item, idKey));
     document.dispatchEvent(
       new CustomEvent(`${RESOURCE_EVENTS.successUpdating}-${resourceName}`, {
         composed: true,
