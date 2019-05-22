@@ -5,7 +5,7 @@ import { getResourceLoadingStatus } from '../../global/loading/selectors';
 
 export default createStructuredSelector({
   posts: getResourceByKey(RESOURCES.posts),
-  isLoading: getResourceLoadingStatus(RESOURCES.posts),
+  isLoading: getResourceLoadingStatus(`${RESOURCES.posts}Creating`),
   userId: getResourceByKey(RESOURCES.profile, ['user', 'id']),
   username: getResourceByKey(RESOURCES.profile, ['user', 'username']),
 });

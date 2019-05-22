@@ -4,6 +4,7 @@ import {
   CREATE_RESOURCE_IN_STORE,
   DELETE_RESOURCE_FROM_STORE,
   UPDATE_RESOURCE_FROM_STORE,
+  FETCH_RESOURCE_SUCCESS,
 } from './constants';
 import { updateResourceItemFromState, removeResourceItemFromState } from './utils';
 
@@ -11,6 +12,7 @@ export const initialState = {};
 
 export default function resourcesReducer(state = initialState, { type, payload }) {
   switch (type) {
+    case FETCH_RESOURCE_SUCCESS:
     case MODIFY_RESOURCE: {
       const { resourcePath, data } = payload;
       const resourceLens = lensPath(resourcePath);

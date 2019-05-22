@@ -1,16 +1,27 @@
 import { all, takeEvery, put, call } from 'redux-saga/effects';
 import isPlainObject from 'lodash/isPlainObject';
 import { FETCH_RESOURCE, DELETE_RESOURCE, CREATE_RESOURCE, UPDATE_RESOURCE, RESOURCE_EVENTS } from './constants';
-import { updateResourceFromStore, createResourceInStore, deleteResourceFromStore, modifyResource } from './actions';
+import {
+  updateResourceFromStore,
+  createResourceInStore,
+  deleteResourceFromStore,
+  fetchResourceSuccess,
+  fetchResourceFailed,
+} from './actions';
 
 export function* handleFetchResource({ payload }) {
-  const { resourceKey, apiCall, params, nestIntoKey } = payload;
+  const { resourcePath, apiCall, params } = payload;
+  const resourceName = resourcePath[0];
   try {
     const data = yield call(apiCall, ...(isPlainObject(params) ? Object.values(params) : [params]));
-    yield put(modifyResource([resourceKey], data, nestIntoKey));
+    yield put(fetchResourceSuccess(resourcePath, data));
   } catch (error) {
+    yield put(fetchResourceFailed());
     document.dispatchEvent(
-      new CustomEvent(`${RESOURCE_EVENTS.errorFetching}-${resourceKey}`, { composed: true, bubbles: true })
+      new CustomEvent(`${RESOURCE_EVENTS.errorFetching}-${resourceName}`, {
+        composed: true,
+        bubbles: true,
+      })
     );
   }
 }

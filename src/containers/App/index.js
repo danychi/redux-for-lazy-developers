@@ -13,7 +13,6 @@ import { RESOURCES } from '../../global/resources/constants';
 import { fetchPosts } from '../../services/posts';
 import { fetchProfile } from '../../services/profile';
 import { fetchGallery } from '../../services/gallery';
-import { generatePosts } from '../../mock/data';
 
 const App = ({ children }) => (
   <Fragment>
@@ -45,9 +44,9 @@ export default compose(
   ),
   lifecycle({
     componentDidMount() {
-      this.props.fetchResource(RESOURCES.posts, fetchPosts);
-      this.props.fetchResource(RESOURCES.profile, fetchProfile);
-      this.props.fetchResource(RESOURCES.gallery, fetchGallery);
+      this.props.fetchResource([RESOURCES.posts], fetchPosts);
+      this.props.fetchResource([RESOURCES.profile], fetchProfile);
+      this.props.fetchResource([RESOURCES.gallery], fetchGallery);
     },
   })
 )(App);
