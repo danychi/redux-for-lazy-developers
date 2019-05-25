@@ -15,7 +15,10 @@ export default function resourcesReducer(state = initialState, { type, payload }
     case FETCH_RESOURCE_SUCCESS:
     case MODIFY_RESOURCE: {
       const { resourcePath, data } = payload;
+      // The lens allows us to focus in just one key of an object
       const resourceLens = lensPath(resourcePath);
+      /* Returns the result of "setting" the portion of 
+      the given data structure focused by the given lens to the given value. */
       return set(resourceLens, data, state);
     }
     case CREATE_RESOURCE_IN_STORE: {

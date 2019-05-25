@@ -12,6 +12,11 @@ router.get('/*', (req, res) => {
   return res.send(JSON.parse(file));
 });
 
+router.post('/posts/:postId/comments', async (req, res) => {
+  const { body } = req;
+  return res.send(body);
+});
+
 router.post('/*', async (req, res) => {
   const { body } = req;
   await sleep(2000);

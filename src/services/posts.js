@@ -20,7 +20,12 @@ export const deletePost = async (id) => {
   return result;
 };
 
-export const deleteComment = async (id) => {
-  const result = await deleteMethod(`${SERVER_DOMAIN}/${POSTS_URL}/comments/${id}`);
+export const deleteComment = async (postId, commentId) => {
+  const result = await deleteMethod(`${SERVER_DOMAIN}/${POSTS_URL}/${postId}/comments/${commentId}`);
+  return result;
+};
+
+export const createComment = async (postId, comment) => {
+  const result = await post(`${SERVER_DOMAIN}/${POSTS_URL}/${postId}/comments/`, comment);
   return result;
 };

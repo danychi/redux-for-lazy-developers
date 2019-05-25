@@ -32,20 +32,10 @@ export default compose(
     }
   ),
   withHandlers({
-    onSavePost: ({
-      caption,
-      location,
-      selectedImage,
-      createResource: createResourceAction,
-      user,
-      userPosts,
-      modifyResource,
-    }) => (e) => {
+    onSavePost: ({ caption, location, selectedImage, createResource, user }) => (e) => {
       e.preventDefault();
       const newPost = buildPost(selectedImage.photoUrl, caption, location, user);
-      createResourceAction(createPost, newPost, [RESOURCES.posts]);
-      // This call wouldn't be necessary if you have a real BE
-      modifyResource([RESOURCES.profile, 'posts'], [newPost, ...userPosts]);
+      createResource([RESOURCES.posts], () => createPost(newPost));
       browserHistory.push(HOMEPAGE_ROUTE);
     },
   })

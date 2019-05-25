@@ -11,6 +11,7 @@ import {
   DELETE_RESOURCE,
   DELETE_RESOURCE_FROM_STORE,
   FETCH_RESOURCE_SUCCESS,
+  CREATE_RESOURCE_SUCCESS,
 } from '../resources/constants';
 
 export const initialState = {};
@@ -38,6 +39,7 @@ export default function loadingReducer(state = initialState, { type, payload }) 
         [`${payload.resourcePath[0]}Deleting`]: true,
       };
     case CREATE_RESOURCE_IN_STORE:
+    case CREATE_RESOURCE_SUCCESS:
     case CREATE_RESOURCE_FAILURE: {
       return {
         ...state,

@@ -12,20 +12,19 @@ import {
   FETCH_RESOURCE_FAILURE,
   DELETE_RESOURCE_FAILURE,
   FETCH_RESOURCE_SUCCESS,
+  CREATE_RESOURCE_SUCCESS,
 } from './constants';
 
 /**
  * @param {String} resourcePath
  * @param {Function} apiCall
- * @param {any} params
  * @return {ReduxAction}
  */
-export const fetchResource = (resourcePath, apiCall, params) => ({
+export const fetchResource = (resourcePath, apiCall) => ({
   type: FETCH_RESOURCE,
   payload: {
     resourcePath,
     apiCall,
-    params,
   },
 });
 
@@ -37,8 +36,11 @@ export const fetchResourceSuccess = (resourcePath, data) => ({
   },
 });
 
-export const fetchResourceFailed = () => ({
+export const fetchResourceFailed = (resourcePath) => ({
   type: FETCH_RESOURCE_FAILURE,
+  payload: {
+    resourcePath,
+  },
 });
 
 /**
@@ -55,7 +57,7 @@ export const modifyResource = (resourcePath, data) => ({
 });
 
 /**
- * @param {String/<String>} resourcePath
+ * @param {<String>} resourcePath
  * @param {Function} deleteApiCall
  * @param {String} id
  * @param {String} idKey
@@ -71,12 +73,15 @@ export const deleteResource = (resourcePath, deleteApiCall, id, idKey) => ({
   },
 });
 
-export const deleteResourceFailed = () => ({
+export const deleteResourceFailed = (resourcePath) => ({
   type: DELETE_RESOURCE_FAILURE,
+  payload: {
+    resourcePath,
+  },
 });
 
 /**
- * @param {String/<String>} resourcePath
+ * @param {<String>} resourcePath
  * @param {Object} id
  * @param {String} idKey
  * @return {ReduxAction}
@@ -91,7 +96,7 @@ export const deleteResourceFromStore = (resourcePath, id, idKey) => ({
 });
 
 /**
- * @param {String/<String>} resourcePath
+ * @param {<String>} resourcePath
  * @param {Function} apiCall
  * @param {Object} item
  * @param {String} idKey
@@ -107,12 +112,15 @@ export const updateResource = (resourcePath, apiCall, item, idKey) => ({
   },
 });
 
-export const updateResourceFailed = () => ({
+export const updateResourceFailed = (resourcePath) => ({
   type: UPDATE_RESOURCE_FAILURE,
+  payload: {
+    resourcePath,
+  },
 });
 
 /**
- * @param {String/<String>} resourcePath
+ * @param {<String>} resourcePath
  * @param {Object} updatedItem
  * @param {String} idKey
  * @return {ReduxAction}
@@ -127,21 +135,24 @@ export const updateResourceFromStore = (resourcePath, updatedItem, idKey) => ({
 });
 
 /**
- * @param {Function} apiCall
- * @param {any} params
  * @param {String} resourcePath
- * @param {ReduxAction} successCallbackAction
- * @param {ReduxAction} failureCallbackAction
+ * @param {Function} apiCall
+ * @param {ReduxAction} overwriteSuccessCallback
  * @return {ReduxAction}
  */
-export const createResource = (apiCall, params, resourcePath, successCallbackAction, failureCallbackAction) => ({
+export const createResource = (resourcePath, apiCall, overwriteSuccessCallback) => ({
   type: CREATE_RESOURCE,
   payload: {
-    apiCall,
-    params,
     resourcePath,
-    successCallbackAction,
-    failureCallbackAction,
+    apiCall,
+    overwriteSuccessCallback,
+  },
+});
+
+export const createResourceSuccess = (resourcePath) => ({
+  type: CREATE_RESOURCE_SUCCESS,
+  payload: {
+    resourcePath,
   },
 });
 
